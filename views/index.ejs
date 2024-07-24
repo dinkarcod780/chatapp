@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body>
+
+  <main>
+    
+    <div class="left">
+      <div class="top">
+      <div class="user">
+        <img src="<%=user.profileImage%>" alt="">
+    <h1><%=user.username%></h1>
+      </div>
+      
+    </div>
+    <div class="bottom">
+     <div class="users">
+
+     </div>
+    </div>
+    </div>
+    <div class="right">
+      <div class="topUser">
+        <div class="user">
+          <img src="<%=user.profileImage%>" alt="">
+          <h1><%=user.username%></h1>
+        </div>
+        <small>Active now</small>
+      </div>
+      <div class="conversation">
+        <div class="messages">
+          <!-- <div class="message">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuShY9_o1wMP3ngctQycHllI_orxsc4LlGxw&usqp=CAU" alt="">
+            <p>Some message</p>
+          </div>
+          <div class="message">
+            <p>Some message</p>
+          </div> -->
+        </div>
+        <div class="inputs">
+          <input type="text" placeholder="Write your message" name="">
+          <button><i class="ri-send-plane-fill"></i></button>
+          
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        var user ="<%= user.username %>"
+        socket.emit("join",user)
+        let receiver = null
+        let receiverImage = null
+        
+
+        axios.get('/getOnlineUser').then(response => {
+      response.data.onlineUsers.forEach(onlineUser => {
+
+        appendNewChat(onlineUser.profileImage, onlineUser.username)
+
+      });
+    })
+
+   
+
+        function appendNewChat(userImage, userName) {
+      const userTemplate = `
+       <div  onClick="openChat('${userImage}','${userName}')" class="user">
+            <img src="${userImage}" alt="">
+            <h1>${userName}</h1>
+          </div>`
+
+      document.querySelector('.left .users').innerHTML += userTemplate
+    }
+
+    function appendIncomingMessage(userImage, message) {
+      const messageTemplate = `
+      <div class="message">
+            <img src="${userImage}" alt="">
+            <p>${message}</p>
+          </div>
+      `
+      document.querySelector('.messages').innerHTML += messageTemplate
+
+    }
+
+       
+    document.querySelector('.inputs button').addEventListener('click', () => {
+
+const message = document.querySelector('.inputs input').value
+
+const messageTemplate = `
+<div class="message">
+      <p>${message}</p>
+    </div>
+`
+
+document.querySelector('.messages').innerHTML += messageTemplate
+document.querySelector('.inputs input').value = ""
+
+socket.emit("sony",{
+  sender:user,
+  receiver:receiver,
+  text:message
+})
+
+}) 
+
+socket.on('max', messagePacket => {
+      appendIncomingMessage(messagePacket.sender.profileImage, messagePacket.text)
+    })
+
+
+function openChat(userImage,userName){
+  receiver = userName
+  document.querySelector(".right").style.display ="flex"
+  document.querySelector(".topUser .user img").src =userImage
+  document.querySelector('.topUser .user h1').textContent = userName
+
+  axios.get(`/getMessage?receiver=${receiver}`).then(response => {
+
+response.data.messages.forEach(message => {
+
+  if (message.sender == user) {
+    appendOutgoingMessage(message.text)
+  } else {
+    appendIncomingMessage(receiverImage, message.text)
+  }
+
+})
+
+})
+
+
+
+
+} 
+       
+    </script>
+</body>
+</html>
+

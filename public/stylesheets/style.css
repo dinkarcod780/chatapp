@@ -1,0 +1,189 @@
+* {
+  padding: 0%;
+  margin: 0%;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #191919;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #ffffff;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+main .top {
+  padding: 4rem 2rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+}
+main .top .user {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+}
+main .top .user img {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+main .top .user h1 {
+  font-weight: 400;
+  font-size: 1.6rem;
+}
+
+.left {
+  width: 30%;
+  height: 100%;
+  background-color: #191919;
+}
+.left .bottom {
+  height: 45%;
+  width: 100%;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+.left .bottom .user {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.9rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.064);
+}
+.left .bottom .user:nth-last-child(1) {
+  border-bottom: none;
+}
+.left .bottom .user img {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.left .bottom .user h1 {
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+.left .top {
+  padding: 4rem 2rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.right {
+  width: 70%;
+  height: 100%;
+  background-color: #000000;
+  display: none;
+}
+.right .topUser {
+  padding: 1rem 2rem;
+  padding-top: 2rem;
+  background-color: #181818;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+.right .topUser small {
+  margin-left: 4rem;
+  font-size: 0.7rem;
+  bottom: 0.8rem;
+  position: relative;
+  color: rgba(255, 255, 255, 0.3450980392);
+}
+.right .topUser .user {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+}
+.right .topUser .user img {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.right .topUser .user h1 {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.conversation {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.conversation .messages {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  padding-top: 8rem;
+}
+.conversation .messages .message {
+  display: flex;
+  gap: 1rem;
+}
+.conversation .messages .message img {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.conversation .messages .message p {
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  background-color: #323232;
+}
+.conversation .messages .message:has(img) p {
+  background-color: #23cfa6;
+  color: black;
+}
+.conversation .messages .message:not(:has(img)) {
+  margin-left: auto;
+}
+.conversation .inputs {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 3%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.conversation .inputs input {
+  width: calc(100% - 7rem);
+  background-color: #1e1e1e;
+  border-radius: 3rem;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  color: white;
+}
+.conversation .inputs button {
+  padding: 0.4rem;
+  font-size: 1.5rem;
+  color: green;
+  border-radius: 50%;
+  background-color: #1e1e1e;
+  border: none;
+  outline: none;
+  margin-left: 0.2rem;
+  cursor: pointer;
+}/*# sourceMappingURL=style.css.map */
